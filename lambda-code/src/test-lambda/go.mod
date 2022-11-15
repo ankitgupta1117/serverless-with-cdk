@@ -1,4 +1,4 @@
-module github.com/test-lambda
+module test-lambda
 
 go 1.19
 
