@@ -6,6 +6,8 @@ target
 .settings
 .vscode
 *.iml
+.DS_Store
+bin
 
 # CDK asset staging directory
 .cdk.staging
