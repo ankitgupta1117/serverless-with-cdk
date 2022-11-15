@@ -4,17 +4,22 @@ help: ## Prints help for all make commands
 
 APP_NAME?=hello-world
 
-
+clean:
+	rm -rf ./out
 
 ensure-build-dir:
-	mkdir -p out
+	mkdir -p ./out
 
 build-deps: ## Install dependencies
 	go install
 	go mod tidy
 
-build: ensure-build-dir compile ## Build the application for mac
+build:  clean ensure-build-dir compile zip ## Build the application for mac
 
 compile: ## Compile for mac
-	go build -o ./out/$(APP_NAME) ./main.go
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./out/$(APP_NAME)-linux-amd64 ./main.go
+	CGO_ENABLED=0 GOOS=darwin GOARCH=arm64 go build -o ./out/darwin-arm64/$(APP_NAME) ./main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./out/linux-amd64/$(APP_NAME) ./main.go
+
+zip: ## Zip the compiled artifacts
+	zip -j ./out/$(APP_NAME)-darwin-amd64.zip ./out/darwin-arm64/$(APP_NAME)
+	zip -j ./out/$(APP_NAME)-linux-amd64.zip ./out/linux-amd64/$(APP_NAME)

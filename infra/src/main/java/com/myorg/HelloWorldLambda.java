@@ -11,8 +11,8 @@ public class HelloWorldLambda {
         Function helloWorldFunction = Function.Builder.create(scope, id)
                 .functionName("hello-world")
                 .description("Hello World Test function")
-                .code(Code.fromInline("console.log('hello')"))
-                .handler("sefsfs")
+                .code(Code.fromAsset("../lambdas/hello-world/out/hello-world-linux-amd64.zip"))
+                .handler("hello-world")
                 .runtime(Runtime.GO_1_X)
                 .build();
     }
