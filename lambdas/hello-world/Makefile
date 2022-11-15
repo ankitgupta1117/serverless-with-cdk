@@ -4,22 +4,17 @@ help: ## Prints help for all make commands
 
 APP_NAME?=hello-world
 
+
+
 ensure-build-dir:
 	mkdir -p out
 
 build-deps: ## Install dependencies
-	go install -mod=mod
+	go install
 	go mod tidy
-	#go mod vendor
 
 build: ensure-build-dir compile ## Build the application for mac
 
-build-linux: ensure-build-dir compile-linux ## Build the application for linux
-
 compile: ## Compile for mac
-	#go build -mod=vendor -o ./out/$(APP_NAME) ./main.go
 	go build -o ./out/$(APP_NAME) ./main.go
-
-compile-linux: ensure-build-dir ## Compile go-app for linux
-	#CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -mod=vendor -o ./out/$(APP_NAME) ./main.go
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./out/$(APP_NAME) ./main.go
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ./out/$(APP_NAME)-linux-amd64 ./main.go
