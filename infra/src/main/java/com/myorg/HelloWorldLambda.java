@@ -13,7 +13,7 @@ public class HelloWorldLambda {
                 .description("Hello World Test function")
                 .code(Code.fromInline("console.log('hello')"))
                 .handler("sefsfs")
-                .runtime(Runtime.NODEJS_14_X)
+                .runtime(Runtime.GO_1_X)
                 .build();
     }
 }
